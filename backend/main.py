@@ -1,12 +1,13 @@
 from typing import Optional, List
 from fastapi import FastAPI, Response, status, HTTPException, Depends
 from psycopg2.extras import RealDictCursor
-from routers import auth, post, user
+from routers import auth, post, user, opinion
 from dotenv import load_dotenv
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time 
 import os
+from db_drive import DB_Driver
 
 app = FastAPI()
 load_dotenv(verbose=True, override=True, dotenv_path="/Users/gwoninkenji/ShareGratitude/.env")
@@ -28,8 +29,13 @@ while 1:
 
 
 app.include_router(auth.router)
+app.include_router(opinion.router)
 
 
 @app.get("/") # http method & url path
 async def root():
     return {"message": "Hello, world!"}
+
+# NOTE : テーブルを削除するとき
+# driver = DB_Driver()
+# driver.drop_tables()

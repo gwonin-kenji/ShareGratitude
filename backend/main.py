@@ -27,6 +27,9 @@ while 1:
         time.sleep(2)
 
 
+app.include_router(auth.router)
+
+
 @app.get("/") # http method & url path
 async def root():
     return {"message": "Hello, world!"}

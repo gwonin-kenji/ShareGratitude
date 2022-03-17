@@ -20,7 +20,7 @@ class User(BASE):
     password = Column(
         TEXT, nullable=False, comment='user password'
     )
-    email = Column(
+    user_email = Column(
         TEXT, nullable=False, unique=True, comment='email'
     )
     address = Column(
@@ -72,7 +72,7 @@ class Post(BASE):
     ) # Foreign key 
 
 
-class UserOpinion(BASE):
+class UserMessage(BASE):
     __tablename__ = 'opinions'
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True
@@ -94,15 +94,15 @@ class UserOpinion(BASE):
         onupdate=func.now(), 
         nullable=False
     )
-    user_name = Column(
-        TEXT,
-        ForeignKey('users.user_name', onupdate='CASCADE', ondelete='CASCADE')
-    ) # Foreign key 
+    # user_name = Column(
+    #     TEXT,
+    #     ForeignKey('users.user_name', onupdate='CASCADE', ondelete='CASCADE')
+    # ) # Foreign key 
 
     # これを外部キーに設定しようとするとエラーが出た。理由はまだ分かってない。 https://teratail.com/questions/144342
-    # user_email = Column(
-    #     TEXT,
-    #     ForeignKey('users.email', onupdate='CASCADE', ondelete='CASCADE')
-    # ) # Foreign key 
+    user_email = Column(
+        TEXT,
+        ForeignKey('users.user_email', onupdate='CASCADE', ondelete='CASCADE')
+    ) # Foreign key 
 
 

@@ -19,13 +19,13 @@ class DB_Driver:
         """
         local_adapter.make_tables(tables=[User])
         local_adapter.make_tables(tables=[Post])
-        local_adapter.make_tables(tables=[UserOpinion])
+        local_adapter.make_tables(tables=[UserMessage])
     
     def drop_tables(self) -> None:
         """
         テーブルの削除 : 依存関係があるので削除する順番に気を付ける
         """
-        local_adapter.delete_tables(tables=[UserOpinion])
+        local_adapter.delete_tables(tables=[UserMessage])
         local_adapter.delete_tables(tables=[Post])
         local_adapter.delete_tables(tables=[User])
 

@@ -30,7 +30,8 @@ while 1:
 
 app.include_router(auth.router)
 app.include_router(opinion.router)
-
+app.include_router(post.router)
+app.include_router(user.router)
 
 @app.get("/") # http method & url path
 async def root():
@@ -39,3 +40,4 @@ async def root():
 # NOTE : テーブルを削除するとき
 # driver = DB_Driver()
 # driver.drop_tables()
+# driver.create_tables()

@@ -1,5 +1,5 @@
 from fastapi import status, HTTPException, Depends, APIRouter
-import schemas
+import schemas, utils
 from models import User
 from db_drive import DB_Driver
 
@@ -19,6 +19,8 @@ def create_user(user: schemas.UserCreate, db: DB_Driver = Depends(DB_Driver)):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"メールアドレスが重複しています")
 
     # TODO : パスワードはハッシュ化して保存
+    hashed_password = utils.hash(user.password)
+    user.password = hashed_password
     new_user = User(**user.dict())
     db.add(new_user)
     db.refresh_query(new_user)

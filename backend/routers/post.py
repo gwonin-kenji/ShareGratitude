@@ -22,7 +22,6 @@ def create_post(
     db.refresh_query(new_post)
     return new_post
 
-
 @router.put("/update/{id}", response_model=schemas.Post)
 def update_post(
     id: int, 
@@ -46,6 +45,9 @@ def delete_post(
     current_user = Depends(oauth2.get_current_user),    
     ):
     # TODO : ログインさえすれば誰でも削除できるので、トークンから取得できるユーザメールから、ユーザ名を取得し、外部キーが同じユーザ名の投稿を削除できるようにする
+    # 1. 外部キー(owner_id)が、user_idと一致するポストをクエリする
+    # 2. ポストがあれば削除する
+
     post = db.query_post(id)
     if post.first() == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"The post with id: {id} is not found")

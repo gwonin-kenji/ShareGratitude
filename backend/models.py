@@ -62,13 +62,15 @@ class Post(BASE):
         onupdate=func.now(), 
         nullable=False
     )
+    # TODO : owner id
     user_id = Column(
         Integer,
         ForeignKey('users.id', onupdate='CASCADE', ondelete='CASCADE')
     ) # Foreign key 
     user_name = Column(
         TEXT,
-        ForeignKey('users.user_name', onupdate='CASCADE', ondelete='CASCADE')
+        ForeignKey('users.user_name', onupdate='CASCADE', ondelete='CASCADE'),
+        nullable=False
     ) # Foreign key 
 
 

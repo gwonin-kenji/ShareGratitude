@@ -6,12 +6,27 @@ from dotenv import load_dotenv
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time 
+import pathlib
 import os
 from db_drive import DB_Driver
+from starlette.middleware.cors import CORSMiddleware
+
+load_dotenv(verbose=True, override=True, dotenv_path=f"{pathlib.Path().cwd()}/.env")
 
 app = FastAPI()
-load_dotenv(verbose=True, override=True, dotenv_path="/Users/gwoninkenji/ShareGratitude/.env")
 
+# CORS設定
+origins = [
+    "http://localhost:8080", #Vueのデフォルトポート番号
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # db接続の確認
 while 1:
